@@ -1,0 +1,241 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentación de la API de Challenge Zipnova Ecommerce",
+        "description": "Esta es la documentación Swagger de la API del sistema de gestión de órdenes.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1",
+            "description": "Versión 1 del API"
+        }
+    ],
+    "paths": {
+        "/orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Listar órdenes paginadas",
+                "operationId": "325fd3d55bbe9bb39645269928fa4983",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número de página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de órdenes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Crear una nueva orden",
+                "operationId": "createOrder",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "shipping_address",
+                                    "billing_info",
+                                    "items"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "shipping_address": {
+                                        "required": [
+                                            "street",
+                                            "city",
+                                            "province",
+                                            "postal_code",
+                                            "country"
+                                        ],
+                                        "properties": {
+                                            "street": {
+                                                "type": "string",
+                                                "example": "Av. Siempre Viva 742"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "Springfield"
+                                            },
+                                            "province": {
+                                                "type": "string",
+                                                "example": "Buenos Aires"
+                                            },
+                                            "postal_code": {
+                                                "type": "string",
+                                                "example": "1234"
+                                            },
+                                            "country": {
+                                                "type": "string",
+                                                "example": "Argentina"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "billing_info": {
+                                        "required": [
+                                            "tax_id",
+                                            "company_name",
+                                            "address"
+                                        ],
+                                        "properties": {
+                                            "tax_id": {
+                                                "type": "string",
+                                                "example": "20-12345678-9"
+                                            },
+                                            "company_name": {
+                                                "type": "string",
+                                                "example": "ACME Corp"
+                                            },
+                                            "address": {
+                                                "required": [
+                                                    "street",
+                                                    "city",
+                                                    "province",
+                                                    "postal_code",
+                                                    "country"
+                                                ],
+                                                "properties": {
+                                                    "street": {
+                                                        "type": "string",
+                                                        "example": "Calle Falsa 123"
+                                                    },
+                                                    "city": {
+                                                        "type": "string",
+                                                        "example": "Buenos Aires"
+                                                    },
+                                                    "province": {
+                                                        "type": "string",
+                                                        "example": "Buenos Aires"
+                                                    },
+                                                    "postal_code": {
+                                                        "type": "string",
+                                                        "example": "1000"
+                                                    },
+                                                    "country": {
+                                                        "type": "string",
+                                                        "example": "Argentina"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "items": {
+                                        "type": "array",
+                                        "items": {
+                                            "required": [
+                                                "product_id",
+                                                "quantity"
+                                            ],
+                                            "properties": {
+                                                "product_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "quantity": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Orden creada exitosamente"
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    },
+                    "500": {
+                        "description": "Error del servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/orders/{id}": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Obtener detalle de una orden",
+                "operationId": "getOrderById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la orden",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle de la orden"
+                    },
+                    "404": {
+                        "description": "Orden no encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Orders",
+            "description": "Orders"
+        }
+    ]
+}
