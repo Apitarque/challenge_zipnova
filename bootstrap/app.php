@@ -49,6 +49,17 @@ return Application::configure(basePath: dirname(__DIR__))
             return response('Recurso no encontrado', 404);
         });
 
+        // Para errores 404
+        $exceptions->renderable(function (\Symfony\Component\Routing\Exception\RouteNotFoundException $e, $request) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'message' => 'Recurso web no encontrado.'
+                ], 404);
+            }
+
+            return response('Recurso web no encontrado', 404);
+        });
+
         // Para errores 500
         $exceptions->renderable(function (\Exception $e, $request) {
             \Log::info($e);
