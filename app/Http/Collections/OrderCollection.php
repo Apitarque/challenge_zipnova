@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Collections;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\AddressResource;
+use App\Http\Resources\BillingInfoResource;
+use App\Http\Resources\ItemResource;
 
 class OrderCollection extends ResourceCollection
 {

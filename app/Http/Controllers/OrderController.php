@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Jobs\SendOrderCreatedEmail;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Gate;
-use App\Http\Resources\OrderCollection;
+use App\Http\Collections\OrderCollection;
 use App\Http\Resources\OrderResource;
 
 /**
