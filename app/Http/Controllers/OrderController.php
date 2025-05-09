@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Cache;
 use App\Jobs\SendOrderCreatedEmail;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Resources\OrderCollection;
+use App\Http\Resources\OrderResource;
 
 /**
  * @OA\Info(
@@ -77,7 +79,7 @@ class OrderController extends Controller
             ])->paginate(10);
         });
 
-        return response()->json($orders);
+        return new OrderCollection($orders);
     }
 
 
@@ -192,6 +194,6 @@ class OrderController extends Controller
             'items.product',
         ]);
 
-        return response()->json($order);
+        return new OrderResource($order);
     }
 }
