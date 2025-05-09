@@ -39,7 +39,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         // Para errores 404
-        $exceptions->renderable(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e, $request) {
+        $exceptions->renderable(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, $request) {
             if ($request->wantsJson()) {
                 return response()->json([
                     'message' => 'Recurso no encontrado.'
