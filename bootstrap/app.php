@@ -61,7 +61,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         // Para errores 500
-        $exceptions->renderable(function (\Exception $e, $request) {
+        $exceptions->renderable(function (\Throwable $e, $request) {
             \Log::info($e);
             if ($request->wantsJson()) {
                 return response()->json([
